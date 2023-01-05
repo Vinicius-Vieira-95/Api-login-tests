@@ -22,6 +22,13 @@ public class Role implements GrantedAuthority{
 	@Column(nullable = false)
 	private String roleName;
 
+	public Role() {
+	}
+
+	public Role(String roleName) {
+		this.roleName = roleName;
+	}
+
 	@Override
 	public String getAuthority() {
 		return this.roleName;
@@ -42,5 +49,5 @@ public class Role implements GrantedAuthority{
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-
+	
 }
