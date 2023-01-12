@@ -1,6 +1,7 @@
 package com.vncautenticacao.vnc2.entities;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -24,7 +25,7 @@ public class User {
 
     @ManyToMany
     @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<Role>();
 
     public User() {
     }

@@ -1,12 +1,20 @@
 package com.vncautenticacao.vnc2.dtos;
 
-import java.util.List;
+import java.io.Serializable;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
-public class UserDto {
-    
-    private Long idUser;
-    private List<Long> idsRoles;
+@Getter
+@Setter
+public class UserDto implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
+    private String name;
+    private String email;
+    private String password;
+    private String role;
 }
