@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
 
 import com.vncautenticacao.vnc2.dtos.UserDto;
@@ -21,6 +22,7 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Transient
     public User createUser(User user) {
         return userRepository.save(user);
     }
@@ -29,18 +31,23 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transient
     public User addRoleToUser(UserDto createUserRoledto) {
 
         Optional<User>  user1 = userRepository.findByEmail(createUserRoledto.getEmail());
         String roleName = roleRepository.findByName(createUserRoledto.getRole()).getName();
+        System.out.println(roleName);
 
         if(user1.isEmpty()){
           throw new Error("User not found");
+        }
+        if(roleName.isEmpty()){
+          throw new Error("Role dosn't exist");
         }
 
         User user = user1.get();
         user.getRoles().add(new Role(roleName));
         userRepository.save(user);
         return user;
-      }
+    }
 }
