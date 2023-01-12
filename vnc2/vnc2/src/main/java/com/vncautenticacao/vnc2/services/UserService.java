@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vncautenticacao.vnc2.dtos.UserDto;
@@ -22,8 +23,13 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    public BCryptPasswordEncoder passwordEncoder() {
+      return new BCryptPasswordEncoder();
+    }
+
     @Transient
     public User createUser(User user) {
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
     }
 
